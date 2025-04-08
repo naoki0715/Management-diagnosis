@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建設業経営管理レベル診断シート</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <header class="border-b border-gray-300 pb-4 mb-6">
+            <h1 class="text-3xl font-bold" style="color: #2c5dff;">建設会社経営管理レベル診断シート</h1>
+            <p class="text-gray-600 mt-2">自社の経営管理レベルを5段階で診断し、強み・弱みを可視化するツールです。</p>
+        </header>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4" style="color: #2c5dff;">基本情報</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2" for="company">会社名</label>
+                    <input type="text" id="company" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2" for="date">診断日</label>
+                    <input type="date" id="date" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-4" style="color: #2c5dff;">診断方法</h2>
+            <p class="text-gray-700 mb-4">各項目について、現在の貴社の状況に最も近いレベルを選択してください。</p>
+            <div class="bg-blue-50 p-4 rounded-md mb-6">
+                <div class="grid grid-cols-5 gap-4 text-center font-medium">
+                    <div class="text-gray-700">レベル1<br><span class="text-xs">未着手</span></div>
+                    <div class="text-gray-700">レベル2<br><span class="text-xs">基盤構築段階</span></div>
+                    <div class="text-gray-700">レベル3<br><span class="text-xs">安定運用段階</span></div>
+                    <div class="text-gray-700">レベル4<br><span class="text-xs">最適化段階</span></div>
+                    <div class="text-gray-700">レベル5<br><span class="text-xs">戦略的活用段階</span></div>
+                </div>
+            </div>
+        </div>
+
+        <form id="diagnostic-form">
+            <!-- 1. 経営計画・管理体制 -->
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4 pb-2 border-b" style="color: #2c5dff; border-color: #2c5dff;">1. 経営計画・管理体制</h2>
+                
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">1-1. 経営計画は文書化され、定期的に進捗確認している</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_1" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_1" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_1" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_1" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_1" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">1-2. 経営会議・報告体制が整備され、定期的に開催されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_2" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_2" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_2" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_2" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_2" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">1-3. 経営指標（KPI/KGI）が明確に設定され、モニタリングされている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_3" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_3" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_3" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_3" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_3" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">1-4. 各部門・担当者の責任と権限が明確に定義されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_4" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_4" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_4" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_4" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="planning_4" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 財務管理 -->
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4 pb-2 border-b" style="color: #2c5dff; border-color: #2c5dff;">2. 財務管理</h2>
+                
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">2-1. 月次決算が翌月中旬までに完了し、経営判断に活用されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_1" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_1" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_1" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_1" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_1" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">2-2. 3ヶ月先までの資金繰り予測を定期的に更新している</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_2" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_2" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_2" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_2" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_2" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">2-3. 予算実績比較が月次で行われ、乖離の原因分析がされている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_3" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_3" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_3" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_3" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_3" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">2-4. 金融機関との関係が良好で、必要な融資枠を確保できている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_4" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_4" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_4" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_4" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="finance_4" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 工事管理 -->
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4 pb-2 border-b" style="color: #2c5dff; border-color: #2c5dff;">3. 工事管理</h2>
+                
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">3-1. 全ての工事で予算と実績を比較し、定期的に差異分析している</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_1" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_1" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_1" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_1" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_1" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">3-2. 見積精度が高く、予定粗利率と実績の乖離が少ない</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_2" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_2" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_2" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_2" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_2" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">3-3. 工程管理が徹底され、遅延の早期発見と対策ができている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_3" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_3" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_3" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_3" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_3" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">3-4. 追加・変更工事の管理プロセスが確立され、請求漏れがない</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_4" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_4" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_4" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_4" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="project_4" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 営業・受注管理 -->
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4 pb-2 border-b" style="color: #2c5dff; border-color: #2c5dff;">4. 営業・受注管理</h2>
+                
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">4-1. 顧客情報と案件情報が一元管理されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_1" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_1" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_1" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_1" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_1" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">4-2. 3ヶ月先までの受注予測が80%以上の精度で行われている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_2" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_2" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_2" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_2" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_2" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">4-3. 見積作成プロセスが標準化され、担当者によるばらつきが少ない</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_3" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_3" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_3" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_3" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_3" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">4-4. 案件の採算性を事前評価し、受注可否の判断基準が明確である</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_4" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_4" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_4" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_4" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="sales_4" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 組織・人材管理 -->
+            <div class="mb-10">
+                <h2 class="text-xl font-semibold mb-4 pb-2 border-b" style="color: #2c5dff; border-color: #2c5dff;">5. 組織・人材管理</h2>
+                
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">5-1. 組織図と業務分掌が明確に定義されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_1" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_1" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_1" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_1" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_1" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">5-2. 社員の教育計画が立案され、計画的に実施されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_2" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_2" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_2" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_2" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_2" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">5-3. 公正な評価制度が整備され、フィードバックが行われている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_3" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_3" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_3" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_3" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_3" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="mb-2 font-medium">5-4. 重要な経営情報が適切に共有され、全社的な方向性が統一されている</p>
+                    <div class="grid grid-cols-5 gap-2">
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_4" value="1" class="mr-2"> 1
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_4" value="2" class="mr-2"> 2
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_4" value="3" class="mr-2"> 3
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_4" value="4" class="mr-2"> 4
+                        </label>
+                        <label class="flex items-center justify-center p-2 border rounded-md hover:bg-blue-50 cursor-pointer">
+                            <input type="radio" name="org_4" value="5" class="mr-2"> 5
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-8">
+                <button type="button" id="calculate-btn" class="text-white font-bold py-3 px-6 rounded-lg" style="background-color: #2c5dff;" onmouseover="this.style.backgroundColor='#1a4aee'" onmouseout="this.style.backgroundColor='#2c5dff'">
+                    診断結果を表示
+                </button>
+            </div>
+        </form>
+
+        <div id="results-section" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-center" style="color: #2c5dff;">診断結果</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" style="color: #2c5dff;">経営管理レベル診断結果</h3>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <canvas id="radarChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" style="color: #2c5dff;">総合評価</h3>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div id="total-score-container" class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">総合スコア:</span>
+                                <span id="total-score" class="text-xl font-bold" style="color: #2c5dff;">0</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div id="total-score-bar" class="h-4 rounded-full" style="width: 0%; background-color: #2c5dff;"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="level-evaluation" class="mb-4">
+                            <p class="font-medium mb-2">経営管理レベル:</p>
+                            <p id="level-description" class="bg-blue-50 p-3 rounded-md">
+                                まだ診断が完了していません。全ての項目を入力し、「診断結果を表示」ボタンをクリックしてください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4" style="color: #2c5dff;">改善優先領域</h3>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div id="improvement-areas">
+                        <p>診断結果に基づく改善優先領域が表示されます。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mb-8">
+                <button type="button" id="print-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg">
+                    診断結果を印刷する
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const printBtn = document.getElementById('print-btn');
+            const resultsSection = document.getElementById('results-section');
+            let radarChart;
+
+            // 結果計算とチャート表示
+            calculateBtn.addEventListener('click', function() {
+                // すべての項目が入力されているか確認
+                const categories = ['planning', 'finance', 'project', 'sales', 'org'];
+                let allFilled = true;
+                let categoryScores = {};
+                
+                for(let cat of categories) {
+                    let score = 0;
+                    let count = 0;
+                    for(let i = 1; i <= 4; i++) {
+                        const name = `${cat}_${i}`;
+                        const radios = document.getElementsByName(name);
+                        let checked = false;
+                        
+                        for(let radio of radios) {
+                            if(radio.checked) {
+                                score += parseInt(radio.value);
+                                checked = true;
+                                break;
+                            }
+                        }
+                        
+                        if(!checked) {
+                            allFilled = false;
+                        }
+                        count++;
+                    }
+                    
+                    if(count > 0) {
+                        categoryScores[cat] = score / count;
+                    }
+                }
+                
+                if(!allFilled) {
+                    alert('すべての項目を入力してください。');
+                    return;
+                }
+                
+                // レーダーチャート表示
+                displayRadarChart(categoryScores);
+                
+                // 総合スコアと評価表示
+                const totalScore = Object.values(categoryScores).reduce((sum, score) => sum + score, 0) / Object.keys(categoryScores).length;
+                document.getElementById('total-score').textContent = totalScore.toFixed(1);
+                document.getElementById('total-score-bar').style.width = `${totalScore * 20}%`; // 5段階のため20%ずつ
+                
+                // レベル評価
+                let levelDescription = '';
+                if(totalScore < 1.5) {
+                    levelDescription = '<strong class="text-red-600">レベル1：未着手</strong><br>経営管理の基本的な仕組みがまだ十分に整っていない状態です。まずは日々の業務を安定して回すための基盤づくりが必要です。';
+                } else if(totalScore < 2.5) {
+                    levelDescription = '<strong class="text-orange-600">レベル2：基盤構築段階</strong><br>基本的な管理の仕組みはあるものの、十分に機能していない、または一部のみ機能している状態です。全体最適化に向けた取り組みが必要です。';
+                } else if(totalScore < 3.5) {
+                    levelDescription = '<strong class="text-yellow-600">レベル3：安定運用段階</strong><br>一定の管理体制が確立され、基本的な業務サイクルが回っている状態です。さらなる効率化と高度化を目指しましょう。';
+                } else if(totalScore < 4.5) {
+                    levelDescription = '<strong class="text-green-600">レベル4：最適化段階</strong><br>PDCAサイクルが十分に回り、継続的な改善が行われている状態です。より戦略的な視点での経営管理を目指しましょう。';
+                } else {
+                    levelDescription = '<strong class="text-blue-600">レベル5：戦略的活用段階</strong><br>経営管理が高度に洗練され、経営判断に積極的に活用できている状態です。さらなるイノベーションを追求しましょう。';
+                }
+                document.getElementById('level-description').innerHTML = levelDescription;
+                
+                // 改善優先領域の提案
+                const sortedCategories = Object.entries(categoryScores).sort((a, b) => a[1] - b[1]);
+                let improvementAreas = '<ul class="space-y-4">';
+                
+                const categoryNames = {
+                    'planning': '経営計画・管理体制',
+                    'finance': '財務管理',
+                    'project': '工事管理',
+                    'sales': '営業・受注管理',
+                    'org': '組織・人材管理'
+                };
+                
+                const improvementSuggestions = {
+                    'planning': [
+                        '経営計画の文書化と定期的な進捗確認体制の構築',
+                        '経営会議の定例化と報告体制の確立',
+                        '主要経営指標（KPI/KGI）の設定とモニタリング体制の整備',
+                        '部門間の役割と責任の明確化'
+                    ],
+                    'finance': [
+                        '月次決算プロセスの効率化と早期化',
+                        '3ヶ月先までの資金繰り予測の定期更新体制構築',
+                        '月次での予算実績比較と差異分析の仕組み化',
+                        '金融機関との関係強化と資金調達手段の多様化'
+                    ],
+                    'project': [
+                        '全工事の予算実績管理と定期的な差異分析体制の構築',
+                        '見積精度向上のための過去データ分析と標準化',
+                        '工程管理の徹底と遅延リスクの早期発見体制の確立',
+                        '追加・変更工事の管理プロセス標準化と請求漏れ防止策の実施'
+                    ],
+                    'sales': [
+                        '顧客情報と案件情報の一元管理システムの導入',
+                        '受注予測精度向上のための案件管理プロセス改善',
+                        '見積作成プロセスの標準化と品質向上',
+                        '案件採算性の事前評価基準の明確化と運用徹底'
+                    ],
+                    'org': [
+                        '組織図と業務分掌の明確化と文書化',
+                        '社員教育計画の策定と計画的な実施体制の構築',
+                        '公正な評価制度の整備とフィードバックの徹底',
+                        '経営情報の適切な共有体制の構築と全社的な方向性の統一'
+                    ]
+                };
+                
+                // 下位2つの領域を改善優先領域として提案
+                for(let i = 0; i < Math.min(2, sortedCategories.length); i++) {
+                    const [category, score] = sortedCategories[i];
+                    improvementAreas += `
+                        <li class="bg-blue-50 p-4 rounded-md">
+                            <h4 class="font-bold mb-2" style="color: #2c5dff;">${categoryNames[category]} (スコア: ${score.toFixed(1)})</h4>
+                            <p class="mb-2">この領域は他の領域と比較して優先的に改善すべき点があります。</p>
+                            <p class="font-medium">具体的な改善方向性:</p>
+                            <ul class="list-disc pl-5 mt-1 space-y-1">
+                                ${improvementSuggestions[category].map(suggestion => `<li>${suggestion}</li>`).join('')}
+                            </ul>
+                        </li>
+                    `;
+                }
+                
+                improvementAreas += '</ul>';
+                document.getElementById('improvement-areas').innerHTML = improvementAreas;
+                
+                // 結果セクションを表示
+                resultsSection.classList.remove('hidden');
+            });
+            
+            // レーダーチャート表示関数
+            function displayRadarChart(categoryScores) {
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                
+                const categoryNames = {
+                    'planning': '経営計画・管理体制',
+                    'finance': '財務管理',
+                    'project': '工事管理',
+                    'sales': '営業・受注管理',
+                    'org': '組織・人材管理'
+                };
+                
+                // 既存のチャートがあれば破棄
+                if(radarChart) {
+                    radarChart.destroy();
+                }
+                
+                // チャートデータ作成
+                const data = {
+                    labels: Object.keys(categoryScores).map(key => categoryNames[key]),
+                    datasets: [
+                        {
+                            label: '自社スコア',
+                            data: Object.values(categoryScores),
+                            backgroundColor: 'rgba(44, 93, 255, 0.2)',
+                            borderColor: 'rgba(44, 93, 255, 1)',
+                            pointBackgroundColor: 'rgba(44, 93, 255, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(44, 93, 255, 1)'
+                        },
+                        {
+                            label: '業界平均',
+                            data: [3.2, 3.0, 3.5, 3.3, 3.1], // 業界平均の仮のデータ
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+                        }
+                    ]
+                };
+                
+                // チャート設定
+                const config = {
+                    type: 'radar',
+                    data: data,
+                    options: {
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: true
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 5
+                            }
+                        }
+                    }
+                };
+                
+                // チャート作成
+                radarChart = new Chart(ctx, config);
+            }
+            
+            // 印刷ボタン
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>
