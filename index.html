@@ -696,7 +696,6 @@
                 setTimeout(function() {
                     // レーダーチャートをイメージとして取得
                     const radarChartCanvas = document.getElementById('radarChart');
-                    const radarChartImage = radarChartCanvas.toDataURL('image/png');
                     
                     // 各カテゴリのスコアをテキスト化
                     let categoryScoresText = "";
@@ -717,7 +716,6 @@
                         total_score: totalScore.toFixed(1),
                         category_scores: categoryScoresText,
                         improvement_areas: improvementAreasText,
-                        chart_image: radarChartImage
                     };
                     
                     // EmailJS送信処理
