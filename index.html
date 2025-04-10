@@ -723,7 +723,7 @@
                     // EmailJS送信処理
                     emailjs.send('service_k5hndpb', 'template_kbq6szc', templateParams)
                         .then(function(response) {
-                            console.log('診断結果がメールで送信されました', response.status, response.text);
+                            console.log('より詳しい分析を行いたい方は営業担当にご連絡ください。', response.status, response.text);
                             // メール送信成功を知らせるメッセージを表示
                             const resultDiv = document.createElement('div');
                             resultDiv.className = 'bg-green-100 text-green-800 p-3 rounded-md text-center mb-4';
