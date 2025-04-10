@@ -6,6 +6,8 @@
     <title>建設業経営管理レベル診断シート</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- EmailJSのCDNを追加 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body class="bg-gray-50 p-8">
     <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
@@ -552,6 +554,9 @@
             const printBtn = document.getElementById('print-btn');
             const resultsSection = document.getElementById('results-section');
             let radarChart;
+            
+            // EmailJSの初期化
+            emailjs.init("iIrOakkdM--xPoRsl");
 
             // 結果計算とチャート表示
             calculateBtn.addEventListener('click', function() {
@@ -680,6 +685,59 @@
                 
                 // 結果セクションを表示
                 resultsSection.classList.remove('hidden');
+                
+                // ここからメール送信処理を追加 -----
+                
+                // 会社名と日付を取得
+                const companyName = document.getElementById('company').value || '名称未設定';
+                const diagnosisDate = document.getElementById('date').value || new Date().toISOString().slice(0, 10);
+                
+                // メール送信の準備（チャートの描画完了を待つため少し遅延）
+                setTimeout(function() {
+                    // レーダーチャートをイメージとして取得
+                    const radarChartCanvas = document.getElementById('radarChart');
+                    const radarChartImage = radarChartCanvas.toDataURL('image/png');
+                    
+                    // 各カテゴリのスコアをテキスト化
+                    let categoryScoresText = "";
+                    for(let cat of categories) {
+                        if(categoryScores[cat]) {
+                            categoryScoresText += `${categoryNames[cat]}: ${categoryScores[cat].toFixed(1)}\n`;
+                        }
+                    }
+                    
+                    // 改善優先領域テキスト
+                    const improvementAreasText = document.getElementById('improvement-areas').innerText;
+                    
+                    // EmailJSにメール送信を依頼
+                    const templateParams = {
+                        to_email: 'n.ito@branu.jp',
+                        company_name: companyName,
+                        diagnosis_date: diagnosisDate,
+                        total_score: totalScore.toFixed(1),
+                        category_scores: categoryScoresText,
+                        improvement_areas: improvementAreasText,
+                        chart_image: radarChartImage
+                    };
+                    
+                    // EmailJS送信処理
+                    emailjs.send('service_k5hndpb', 'template_kbq6szc', templateParams)
+                        .then(function(response) {
+                            console.log('診断結果がメールで送信されました', response.status, response.text);
+                            // メール送信成功を知らせるメッセージを表示
+                            const resultDiv = document.createElement('div');
+                            resultDiv.className = 'bg-green-100 text-green-800 p-3 rounded-md text-center mb-4';
+                            resultDiv.textContent = 'より詳しい分析を行いたい方は営業担当にご連絡ください。';
+                            resultsSection.insertBefore(resultDiv, resultsSection.firstChild);
+                        }, function(error) {
+                            console.log('メール送信に失敗しました', error);
+                            // エラーメッセージの表示
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'bg-red-100 text-red-800 p-3 rounded-md text-center mb-4';
+                            errorDiv.textContent = 'メール送信に失敗しました。管理者にお問い合わせください。';
+                            resultsSection.insertBefore(errorDiv, resultsSection.firstChild);
+                        });
+                }, 500); // チャートの描画完了を待つために少し遅延
             });
             
             // レーダーチャート表示関数
